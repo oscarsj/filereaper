@@ -27,13 +27,16 @@ Filereaper can work in two different ways.
 
  * As a command line executor:
    Just executing filereaper by command line passing the corresponding parameters specifying file regexp, policies, etc.
-   Example: Remove recursively files in /var/log/apache that matchs *.log keeping always a minimum of 2 files and removing the ones older than 20 days, being the files ordered by access time.
-   filereaper --keepminimum 2 --file_match "*.log" --recurse true --time_mode atime --older_than_d 20 /var/log/apache
+
+   Example: Remove recursively files in /var/log/apache that matchs \*.log keeping always a minimum of 2 files and removing the ones older than 20 days, being the files ordered by access time.
+
+   filereaper --keepminimum 2 --file_match "\*.log" --recurse true --time_mode atime --older_than_d 20 /var/log/apache
 
  * As a self configured crons:
-   This mode configure the Linux crontabs by specifying some configuration files.
-   The idea is to have a configuration file per directory to clean.
+   This mode configure the Linux crontabs by specifying some configuration files. The idea is to have a configuration file per directory to clean.
+
    By default, you will only need to add configuration files to /etc/filereaper/conf.d/ similar to the samples provided in conf directory.
+
    Filereaper will configure the system crontabs to based on these configuration files, also, it has a storage layer so it remembers what is configured and the crontabs will always be in sync with the configuration files.
 
 
