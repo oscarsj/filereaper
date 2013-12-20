@@ -1,0 +1,12 @@
+setup.py
+src/filereaper/__init__.py
+src/filereaper/config.py
+src/filereaper/cronmanager.py
+src/filereaper/filereaper.py
+src/filereaper/filereaper_module.py
+src/filereaper/persistence.py
+src/filereaper.egg-info/PKG-INFO
+src/filereaper.egg-info/SOURCES.txt
+src/filereaper.egg-info/dependency_links.txt
+src/filereaper.egg-info/not-zip-safe
+src/filereaper.egg-info/top_level.txt

@@ -1,0 +1,21 @@
+Metadata-Version: 1.0
+Name: filereaper
+Version: 0.1
+Summary: A flexible file reaper that support multiple removal policies
+Home-page: http://github.com/victorgp/filereaper
+Author: Victor Garcia
+Author-email: bravejolie@gmail.com
+License: MIT
+Description: filereaper
+        ==========
+        
+        #TODO
+        
+        
+        
+Keywords: file removal reaper multiple policies
+Platform: UNKNOWN
+Classifier: Topic :: System :: Distributed Computing
+Classifier: Topic :: Software Development :: Libraries
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Topic :: Database :: Front-Ends
