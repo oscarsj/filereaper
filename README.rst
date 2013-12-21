@@ -17,7 +17,7 @@ Filereaper is a tool to remove files based on different and flexible policies.
 Installation
 -------------
 
-Two installation modes:
+Two installation modes
  * Debian package: regular installation
  * Python egg: for development
 
@@ -31,6 +31,8 @@ Filereaper can work in two different ways.
    Just executing filereaper by command line passing the corresponding parameters specifying file regexp, policies, etc.
 
    Example: Remove recursively files in /var/log/apache that matchs \*.log keeping always a minimum of 2 files and removing the ones older than 20 days, being the files ordered by access time.
+
+.. code:: bash
 
    $ filereaper --keepminimum 2 --file_match "\*.log" --recurse true --time_mode atime --older_than_d 20 --exclude_list main.log,main2.log --test_mode False /var/log/apache
 
