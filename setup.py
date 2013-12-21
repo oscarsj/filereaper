@@ -11,6 +11,7 @@ version = '0.1'
 
 install_requires = [
     'Jinja2',
+    'importlib',
 ]
 
 tests_requires = [
