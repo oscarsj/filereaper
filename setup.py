@@ -3,7 +3,7 @@ import sys
 import os
 
 here = os.path.abspath(os.path.dirname(__file__))
-README = open(os.path.join(here, 'README.md')).read()
+README = open(os.path.join(here, 'README.rst')).read()
 CHANGELOG = open(os.path.join(here, 'CHANGELOG.txt')).read()
 
 
