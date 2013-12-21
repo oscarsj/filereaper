@@ -194,6 +194,7 @@ class TestExecutor(unittest2.TestCase):
                                                  'dir1'),
                        'faketestdir1.py')),
             ]
+
         self.assertListEqual(to_remove, expected)
 
     def test_build_files_to_remove_with_recurse_depth2(self):
@@ -273,7 +274,7 @@ class TestExecutor(unittest2.TestCase):
         ex = executor.Executor({'test_mode': False})
         to_remove = ['faketest6.py', 'faketestdirlink.py',
                      'newfile.py', 'dir1/faketestdir1.py']
-        to_remove_abs = [os.path.join(self.fake_path_long, file)
+        to_remove_abs = [FileObject(os.path.join(self.fake_path_long, file))
                          for file in to_remove]
         ex._perform_removal(to_remove_abs, self.fake_path_long)
         expected = ['test3.py', 'faketestlink.py',
@@ -283,7 +284,6 @@ class TestExecutor(unittest2.TestCase):
         self.assertListEqual(expected, os.listdir(self.fake_path_long))
         self.assertListEqual(['faketestdir2.py'], os.listdir(os.path.join(
             self.fake_path_long, 'dir2')))
-
 
 if __name__ == '__main__':
     unittest2.main()

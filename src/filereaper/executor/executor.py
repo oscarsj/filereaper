@@ -98,20 +98,21 @@ class Executor(object):
     def _perform_removal(self, files, main_path):
         for file in files:
             try:
-                if os.path.isfile(file) or os.path.islink(file):
-                    self._remove_file(file)
+                if os.path.isfile(file.path) or os.path.islink(file.path):
+                    self._remove_file(file.path)
                     # Checking if the dir is now empty
-                    file_dir = os.path.dirname(file)
+                    file_dir = os.path.dirname(file.path)
                     if not os.listdir(file_dir) and file_dir != main_path:
                         self._remove_dir(file_dir)
                 else:
-                    if not os.listdir(file):
-                        self._remove_dir(file)
+                    if not os.listdir(file.path):
+                        self._remove_dir(file.path)
             except OSError as e:
-                print "Cannot remove %s: %s" % (file, e)
+                print "Cannot remove %s: %s" % (file.path, e)
 
-    def _remove_file(self, file):
-        os.remove(file) if not self.test_mode else self._print_removal(file)
+    def _remove_file(self, file_path):
+        os.remove(file_path) if not self.test_mode\
+                             else self._print_removal(file_path)
 
     def _remove_dir(self, dir):
         os.rmdir(dir) if not self.test_mode else self._print_removal(dir)
@@ -142,9 +143,9 @@ class Executor(object):
                and remove_links)) and re.search(filenamematch, f):
                 current.append(file_object.FileObject(item_path))
             elif os.path.isdir(item_path) and recurse:
-                current.extend(self._get_all_files(current, item_path,
+                current = self._get_all_files(current, item_path,
                                                    filenamematch, recurse,
-                                                   remove_links))
+                                                   remove_links)
         return current
 
     def _sort_files(self, files, sort_by):
