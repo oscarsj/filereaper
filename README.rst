@@ -32,9 +32,8 @@ Filereaper can work in two different ways.
 
    Example: Remove recursively files in /var/log/apache that matchs \*.log keeping always a minimum of 2 files and removing the ones older than 20 days, being the files ordered by access time.
 
-.. code:: bash
 
-   $ filereaper --keepminimum 2 --file_match "\*.log" --recurse true --time_mode atime --older_than_d 20 --exclude_list main.log,main2.log --test_mode False /var/log/apache
+   `$ filereaper --keepminimum 2 --file_match "\*.log" --recurse true --time_mode atime --older_than_d 20 --exclude_list main.log,main2.log --test_mode False /var/log/apache`
 
  * **As a self configured crons**:
 
