@@ -6,12 +6,13 @@ from cronmanager import CronManager
 
 CONFIG_FILE = '/etc/filereaper/filereaper.conf'
 
+
 class FileReaper(object):
 
     modules_dir = None
     main_config_file = None
 
-    def __init__(self, modules_dir, main_config_file = CONFIG_FILE):
+    def __init__(self, modules_dir, main_config_file=CONFIG_FILE):
         self.modules_dir = modules_dir
         self.main_config_file = main_config_file
 
@@ -19,9 +20,10 @@ class FileReaper(object):
         main_config = Config(self.main_config_file)
         main_module = main_config.get_module()
         if not main_module:
-            print "Error parsing main configuration file %s" % self.main_config_file
+            print "Error parsing main configuration file %s"\
+                % self.main_config_file
             return False
-        
+
         modules_configs = self._get_modules_configs(self.modules_dir)
         cron_manager = CronManager(main_module.executor,
                                    main_module.crons_path,
@@ -51,5 +53,5 @@ class FileReaper(object):
                 persistence.store(module)
 
     def _get_modules_configs(self, modules_dir):
-        return map(lambda f:os.path.join(modules_dir, f),
+        return map(lambda f: os.path.join(modules_dir, f),
                    os.listdir(modules_dir))

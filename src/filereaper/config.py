@@ -2,6 +2,7 @@ from ConfigParser import ConfigParser, MissingSectionHeaderError, ParsingError
 
 from filereaper_module import FileReaperModule
 
+
 class Config(object):
 
     config_file = None
@@ -15,7 +16,8 @@ class Config(object):
         try:
             success = config.read(self.config_file)
         except MissingSectionHeaderError:
-            print "Error parsing config file %s, there is no section header" % self.config_file
+            print "Error parsing config file %s, there is no section header"\
+                % self.config_file
             return None
         except ParsingError as e:
             print "Error parsing config file %s: %s" % (self.config_file, e)

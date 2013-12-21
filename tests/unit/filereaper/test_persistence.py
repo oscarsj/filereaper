@@ -4,6 +4,7 @@ import tempfile
 
 from filereaper import persistence
 
+
 class TestPersistence(unittest2.TestCase):
 
     pers = None
@@ -44,9 +45,11 @@ class TestPersistence(unittest2.TestCase):
         ]
 
         cursor = self.pers.conn.cursor()
-        cursor.execute('create table %s (id text, name text)' % self.pers.TABLE_NAME)
-        cursor.executemany('insert into %s values (?, ?)' % self.pers.TABLE_NAME, self.BASIC_FIXTURES)
-       
+        cursor.execute('create table %s (id text, name text)'
+                       % self.pers.TABLE_NAME)
+        cursor.executemany('insert into %s values (?, ?)'
+                           % self.pers.TABLE_NAME, self.BASIC_FIXTURES)
+
     def test_filter_old(self):
         """
         Let's suppose temp1 and temp2 were already used
@@ -56,7 +59,7 @@ class TestPersistence(unittest2.TestCase):
         all_mods = [self.temp1,
                     self.temp2,
                     new_module]
-        
+
         filtered = self.pers.filter_old(all_mods)
         self.assertEquals([new_module],
                           filtered)
@@ -68,7 +71,8 @@ class TestPersistence(unittest2.TestCase):
         self.pers.store(self.temp2)
 
         cursor = self.pers.conn.cursor()
-        modules = cursor.execute('select name from %s' % self.pers.TABLE_NAME).fetchall()
+        modules = cursor.execute('select name from %s'
+                                 % self.pers.TABLE_NAME).fetchall()
         modules = [mod[0] for mod in modules]
         self.assertEquals([self.temp1, self.temp2], modules)
 
@@ -82,7 +86,8 @@ class TestPersistence(unittest2.TestCase):
         removed.remove(('129a8c30e1c3ad89d2635f8abdfdb50b', self.temp1))
         self.assertEquals(deleted, [rem[1] for rem in removed])
         cursor = self.pers.conn.cursor()
-        data = cursor.execute('select name from %s' % self.pers.TABLE_NAME).fetchall()
+        data = cursor.execute('select name from %s'
+                              % self.pers.TABLE_NAME).fetchall()
         self.assertEquals(self.temp1, data[0][0])
 
 if __name__ == '__main__':

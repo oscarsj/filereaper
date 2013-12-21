@@ -4,6 +4,7 @@ import fake_policy
 
 from filereaper.executor import policyloader
 
+
 class TestPolicyLoader(unittest2.TestCase):
 
     fake_policy = "fake_policy"
@@ -34,7 +35,7 @@ class TestPolicyLoader(unittest2.TestCase):
         Test the import of a class with a wrong __init__() method
         """
         policy = self.ploader.load(self.fake_policy_bad2, 'myvalue')
-        self.assertIsNone(policy)       
+        self.assertIsNone(policy)
 
     def test_load_good(self):
         """

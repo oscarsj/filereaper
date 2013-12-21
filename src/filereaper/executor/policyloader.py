@@ -1,10 +1,11 @@
 import importlib
 
+
 class PolicyLoader(object):
 
     BASE_MODULES = 'filereaper.executor.policies'
 
-    def load(self, name, value, params = None):
+    def load(self, name, value, params=None):
         class_name = name.title().replace('_', '')
         file_name = name
         #TODO this is not compatible with 2.6
@@ -21,10 +22,12 @@ class PolicyLoader(object):
             print e
             return None
         except AttributeError as e:
-            print "The file %s does not contain a valid class name, it must be: %s" % (file_name, class_name)
+            print """The file %s does not contain a valid class name,
+                     it must be: %s""" % (file_name, class_name)
             print e
             return None
         except TypeError as e:
-            print "The policy %s could be loaded but the constructor is invalid" % name
+            print """The policy %s could be loaded but the constructor is
+                     invalid""" % name
             print e
             return None

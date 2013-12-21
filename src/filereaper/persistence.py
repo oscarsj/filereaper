@@ -1,6 +1,7 @@
 import sqlite3
 import hashlib
 
+
 class Persistence(object):
 
     TABLE_NAME = 'filereapermodules'
@@ -52,33 +53,37 @@ class Persistence(object):
 
     def _store(self, module, md5):
         try:
-            self.cursor.execute('insert into %s values (?, ?)' % self.TABLE_NAME,
-                            (md5, module))
+            self.cursor.execute('insert into %s values (?, ?)'
+                                % self.TABLE_NAME,
+                                (md5, module))
         except sqlite3.OperationalError:
             self._create_table()
             return self._store(module, md5)
 
     def _get_name(self, id):
         try:
-           return self.cursor.execute('select name from %s where id=?' % self.TABLE_NAME,
-                            (id,)).fetchone()[0]
+            return self.cursor.execute('select name from %s where id=?'
+                                       % self.TABLE_NAME,
+                                       (id,)).fetchone()[0]
         except sqlite3.OperationalError:
             return None
 
     def _delete(self, id):
         try:
-            self.cursor.execute('delete from %s where id=?' % self.TABLE_NAME, 
-                            (id,))
+            self.cursor.execute('delete from %s where id=?' % self.TABLE_NAME,
+                                (id,))
         except sqlite3.OperationalError:
             pass
 
     def _get_ids(self):
         try:
-            rows = self.cursor.execute('select id from %s' % self.TABLE_NAME).fetchall()
+            rows = self.cursor.execute('select id from %s'
+                                       % self.TABLE_NAME).fetchall()
             return [row[0] for row in rows]
         except sqlite3.OperationalError:
             self._create_table()
             return self._get_all()
 
     def _create_table(self):
-        self.cursor.execute('create table %s (id text, name text)' % self.TABLE_NAME)
+        self.cursor.execute('create table %s (id text, name text)'
+                            % self.TABLE_NAME)

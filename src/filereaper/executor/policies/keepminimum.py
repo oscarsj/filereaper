@@ -1,5 +1,6 @@
 from base_policy import BasePolicy
 
+
 class Keepminimum(BasePolicy):
 
     def execute(self):

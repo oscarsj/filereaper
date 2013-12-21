@@ -10,6 +10,7 @@ CRON_TEMPLATE = """#!/bin/bash
 {{run_with_pre}}{{executor}} {{params}}{{run_with_post}}
 """
 
+
 class CronManager(object):
 
     executor = None
@@ -27,9 +28,9 @@ class CronManager(object):
         for attr in module.attributes:
             value = getattr(module, attr)
             if isinstance(value, bool) and value:
-                params+="--%s " % attr
+                params += "--%s " % attr
             else:
-                params+="--%s %s " % (attr, value)
+                params += "--%s %s " % (attr, value)
         run_with_pre = ""
         run_with_post = ""
         if run_with:
@@ -37,10 +38,10 @@ class CronManager(object):
             run_with_post = '"'
 
         template = Template(CRON_TEMPLATE)
-        content = template.render(run_with_pre = run_with_pre,
-                        run_with_post = run_with_post,
-                        executor = self.executor,
-                        params = params)
+        content = template.render(run_with_pre=run_with_pre,
+                                  run_with_post=run_with_post,
+                                  executor=self.executor,
+                                  params=params)
 
         with open(os.path.join(self.crons_path,
                                '%s_%s' % (self.crons_prefix,

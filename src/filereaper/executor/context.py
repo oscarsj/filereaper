@@ -1,6 +1,8 @@
 """
 Implements the context in the strategy pattern
 """
+
+
 class Context(object):
 
     def __init__(self, policy):

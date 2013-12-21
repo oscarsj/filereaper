@@ -6,6 +6,7 @@ import tempfile
 
 from filereaper.executor.policies import keepminimum
 
+
 class TestKeepminimum(unittest2.TestCase):
 
     fake_path = None
@@ -35,4 +36,3 @@ class TestKeepminimum(unittest2.TestCase):
 
 if __name__ == '__main__':
     unittest2.main()
-

@@ -6,6 +6,7 @@ import tempfile
 
 from filereaper.executor.policies import keeplast
 
+
 class TestKeeplast(unittest2.TestCase):
 
     fake_path = None
@@ -38,4 +39,3 @@ class TestKeeplast(unittest2.TestCase):
 
 if __name__ == '__main__':
     unittest2.main()
-

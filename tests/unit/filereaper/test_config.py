@@ -6,6 +6,7 @@ from ConfigParser import ConfigParser
 
 from filereaper.config import Config
 
+
 class TestConfig(unittest2.TestCase):
 
     good_fake_file_content = """[my section!]

@@ -2,7 +2,10 @@ import os
 import re
 import copy
 
-import policyloader, context, file_object
+import policyloader
+import context
+import file_object
+
 
 class Executor(object):
     params = None
@@ -10,33 +13,33 @@ class Executor(object):
 
     def __init__(self, params):
         self.base_params_list = [
-                       'path',
-                       'file_match',
-                       'run_with', #TODO
-                       'test_mode',
-                       'groups_match',#TODO
-                       'recurse',
-                       'keepminimum',
-                       'exclude_list',
-                       'time_mode',
-                       'remove_links',
+            'path',
+            'file_match',
+            'run_with',  # TODO
+            'test_mode',
+            'groups_match',  # TODO
+            'recurse',
+            'keepminimum',
+            'exclude_list',
+            'time_mode',
+            'remove_links',
         ]
         self.policy_params_list = [
-                         'keeplast',
-                         'older_than_d',#TODO
-                         'older_than_m',#TODO
-                         'older_than_s',#TODO
-                         'newer_than_d',#TODO
-                         'newer_than_m',#TODO
-                         'newer_than_s',#TODO
-                         'dir_size_threshold',#TODO
-                         'partition_size_threshold',#TODO
-                         'file_owners',#TODO
-                         'file_groups',#TODO
+            'keeplast',
+            'older_than_d',  # TODO
+            'older_than_m',  # TODO
+            'older_than_s',  # TODO
+            'newer_than_d',  # TODO
+            'newer_than_m',  # TODO
+            'newer_than_s',  # TODO
+            'dir_size_threshold',  # TODO
+            'partition_size_threshold',  # TODO
+            'file_owners',  # TODO
+            'file_groups',  # TODO
         ]
         self.params = params
         self.test_mode = params['test_mode']\
-                         if params and 'test_mode' in params else True
+            if params and 'test_mode' in params else True
 
     def execute(self):
         base_params = self._extract_base_params(self.params)
@@ -50,18 +53,16 @@ class Executor(object):
         """
         file_match = base_params['file_match']
         path = base_params['path']
-        all_files_sorted = self._get_all_files_sorted(path, file_match,
-                                                  base_params['time_mode'],
-                                                  base_params['recurse'],
-                                                  base_params['remove_links'])
+        all_files_sorted = self._get_all_files_sorted(
+            path, file_match, base_params['time_mode'],
+            base_params['recurse'], base_params['remove_links'])
         files_to_remove = all_files_sorted
         ploader = policyloader.PolicyLoader()
 
         # Setting keepminimum first, as it's the higher priority
-        if 'keepminimum' in base_params\
-            and base_params['keepminimum'] > 0:
+        if 'keepminimum' in base_params and base_params['keepminimum'] > 0:
                 self.policy_params_list.insert(0, 'keepminimum')
-                self.params.update({'keepminimum':base_params['keepminimum']})
+                self.params.update({'keepminimum': base_params['keepminimum']})
 
         # Applying policies
         for param in self.policy_params_list:
@@ -91,8 +92,8 @@ class Executor(object):
         return files
 
     def _extract_base_params(self, params):
-        return dict((param, params[param])\
-                     for param in self.base_params_list if param in params)
+        return dict((param, params[param])
+                    for param in self.base_params_list if param in params)
 
     def _perform_removal(self, files, main_path):
         for file in files:
@@ -137,7 +138,7 @@ class Executor(object):
                        remove_links):
         for f in os.listdir(path):
             item_path = os.path.join(path, f)
-            if (os.path.isfile(item_path) or (os.path.islink(item_path)\
+            if (os.path.isfile(item_path) or (os.path.islink(item_path)
                and remove_links)) and re.search(filenamematch, f):
                 current.append(file_object.FileObject(item_path))
             elif os.path.isdir(item_path) and recurse:
@@ -149,5 +150,4 @@ class Executor(object):
     def _sort_files(self, files, sort_by):
         for f in files:
             f.time = getattr(os.stat(f.path), "st_%s" % sort_by)
-        return sorted(files, key=lambda f:f.time)
-
+        return sorted(files, key=lambda f: f.time)

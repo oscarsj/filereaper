@@ -51,13 +51,13 @@ class TestExecutor(unittest2.TestCase):
                                   'new dir content')
 
         self.base_params = {
-            'path':self.fake_path_long,
-            'file_match':'^f.*\.py',
-            'keepminimum':1,
-            'recurse':False,
-            'remove_links':False,
-            'exclude_list':'faketest5.py,faketest2.py',
-            'time_mode':'ctime',
+            'path': self.fake_path_long,
+            'file_match': '^f.*\.py',
+            'keepminimum': 1,
+            'recurse': False,
+            'remove_links': False,
+            'exclude_list': 'faketest5.py,faketest2.py',
+            'time_mode': 'ctime',
             }
 
     def setUpSomeSymlinks(self):
@@ -90,21 +90,30 @@ class TestExecutor(unittest2.TestCase):
         The intersection alsoa needs to preserve the source order
         """
         ex = executor.Executor({})
-        list1 = ['/tmp/tmpmQFTit/faketest2.py', '/tmp/tmpmQFTit/faketest5.py', '/tmp/tmpmQFTit/faketest6.py', '/tmp/tmpmQFTit/faketest7.py', '/tmp/tmpmQFTit/dir1/faketestdir1.py', '/tmp/tmpmQFTit/dir2/faketestdir2.py']
-        list2 = ['/tmp/tmpmQFTit/faketest2.py', '/tmp/tmpmQFTit/faketest5.py', '/tmp/tmpmQFTit/faketest6.py', '/tmp/tmpmQFTit/faketest7.py', '/tmp/tmpmQFTit/dir1/faketestdir1.py']
-        expected = ['/tmp/tmpmQFTit/faketest2.py', '/tmp/tmpmQFTit/faketest5.py', '/tmp/tmpmQFTit/faketest6.py', '/tmp/tmpmQFTit/faketest7.py', '/tmp/tmpmQFTit/dir1/faketestdir1.py']
+        list1 = ['/tmp/tmpmQFTit/faketest2.py', '/tmp/tmpmQFTit/faketest5.py',
+                 '/tmp/tmpmQFTit/faketest6.py', '/tmp/tmpmQFTit/faketest7.py',
+                 '/tmp/tmpmQFTit/dir1/faketestdir1.py',
+                 '/tmp/tmpmQFTit/dir2/faketestdir2.py']
+        list2 = ['/tmp/tmpmQFTit/faketest2.py', '/tmp/tmpmQFTit/faketest5.py',
+                 '/tmp/tmpmQFTit/faketest6.py', '/tmp/tmpmQFTit/faketest7.py',
+                 '/tmp/tmpmQFTit/dir1/faketestdir1.py']
+        expected = ['/tmp/tmpmQFTit/faketest2.py',
+                    '/tmp/tmpmQFTit/faketest5.py',
+                    '/tmp/tmpmQFTit/faketest6.py',
+                    '/tmp/tmpmQFTit/faketest7.py',
+                    '/tmp/tmpmQFTit/dir1/faketestdir1.py']
         self.assertListEqual(expected, ex._lists_intersection(list1, list2))
         self.assertListEqual([], ex._lists_intersection(list1, []))
 
     def test__sort_files(self):
-        ex = executor.Executor({'path':self.fake_path})
+        ex = executor.Executor({'path': self.fake_path})
         randomized = copy.copy(self.fake_files)
         random.shuffle(randomized)
         sorted = ex._sort_files(randomized, 'ctime')
         self.assertListEqual(self.fake_files, sorted)
 
     def test__get_all_files_sorted(self):
-        ex = executor.Executor({'path':self.fake_path})
+        ex = executor.Executor({'path': self.fake_path})
         sorted = ex._get_all_files_sorted(self.fake_path, ".*", 'ctime',
                                           False, False)
         self.assertEqual(len(sorted), len(self.fake_files))
@@ -125,7 +134,7 @@ class TestExecutor(unittest2.TestCase):
         self.setUpLong()
         ex = executor.Executor({})
         to_remove = ex._build_files_to_remove(self.base_params)
-        self.assertListEqual(to_remove, map(lambda f:\
+        self.assertListEqual(to_remove, map(lambda f:
                              FileObject(os.path.join(self.fake_path_long, f)),
                              ['faketest6.py']))
 
@@ -143,10 +152,10 @@ class TestExecutor(unittest2.TestCase):
                                            'faketest6.py'),
                               'new content')
         to_remove = ex._build_files_to_remove(self.base_params)
-        self.assertListEqual(to_remove, map(lambda f:\
+        self.assertListEqual(to_remove, map(lambda f:
                              FileObject(os.path.join(self.fake_path_long, f)),
                              ['faketest7.py']))
-        
+
     def test_build_files_to_remove_with_atime(self):
         """
         test_build_files_to_remove_with_atime
@@ -162,7 +171,7 @@ class TestExecutor(unittest2.TestCase):
             file.read()
 
         to_remove = ex._build_files_to_remove(self.base_params)
-        self.assertListEqual(to_remove, map(lambda f:\
+        self.assertListEqual(to_remove, map(lambda f:
                              FileObject(os.path.join(self.fake_path_long, f)),
                              ['faketest7.py']))
 
@@ -179,11 +188,11 @@ class TestExecutor(unittest2.TestCase):
         self.base_params['recurse'] = True
         to_remove = ex._build_files_to_remove(self.base_params)
         expected = [
-                FileObject(os.path.join(self.fake_path_long, 'faketest6.py')),
-                FileObject(os.path.join(self.fake_path_long, 'faketest7.py')),
-                FileObject(os.path.join(os.path.join(self.fake_path_long,
-                                                     'dir1'),
-                           'faketestdir1.py')),
+            FileObject(os.path.join(self.fake_path_long, 'faketest6.py')),
+            FileObject(os.path.join(self.fake_path_long, 'faketest7.py')),
+            FileObject(os.path.join(os.path.join(self.fake_path_long,
+                                                 'dir1'),
+                       'faketestdir1.py')),
             ]
         self.assertListEqual(to_remove, expected)
 
@@ -211,18 +220,18 @@ class TestExecutor(unittest2.TestCase):
                                   'new dir content')
         to_remove = ex._build_files_to_remove(self.base_params)
         expected = [
-                FileObject(os.path.join(self.fake_path_long, 'faketest6.py')),
-                FileObject(os.path.join(self.fake_path_long, 'faketest7.py')),
-                FileObject(os.path.join(os.path.join(self.fake_path_long,
-                                                     'dir1'),
-                             'faketestdir1.py')),
-                FileObject(os.path.join(os.path.join(self.fake_path_long,
-                                                     'dir2'),
-                             'faketestdir2.py')),
+            FileObject(os.path.join(self.fake_path_long, 'faketest6.py')),
+            FileObject(os.path.join(self.fake_path_long, 'faketest7.py')),
+            FileObject(os.path.join(os.path.join(self.fake_path_long,
+                                                 'dir1'),
+                       'faketestdir1.py')),
+            FileObject(os.path.join(os.path.join(self.fake_path_long,
+                                                 'dir2'),
+                       'faketestdir2.py')),
 
-                FileObject(os.path.join(os.path.join(dir1_path,
-                                                     'subdir1'),
-                                          'faketestsubdir1.py'))
+            FileObject(os.path.join(os.path.join(dir1_path,
+                                                 'subdir1'),
+                                    'faketestsubdir1.py'))
             ]
         self.assertListEqual(to_remove, expected)
 
@@ -239,9 +248,9 @@ class TestExecutor(unittest2.TestCase):
                               "fake content")
         to_remove = ex._build_files_to_remove(self.base_params)
         self.assertNotIn(FileObject(os.path.islink(self.link_name)),
-                                    to_remove)
+                         to_remove)
         self.assertNotIn(FileObject(os.path.islink(self.link_dir_name)),
-                                    to_remove)
+                         to_remove)
 
     def test_build_files_to_remove_remove_links(self):
         self.setUpLong()
@@ -261,10 +270,10 @@ class TestExecutor(unittest2.TestCase):
     def test_perform_removal(self):
         self.setUpLong()
         self.setUpSomeSymlinks()
-        ex = executor.Executor({'test_mode':False})
+        ex = executor.Executor({'test_mode': False})
         to_remove = ['faketest6.py', 'faketestdirlink.py',
                      'newfile.py', 'dir1/faketestdir1.py']
-        to_remove_abs = [os.path.join(self.fake_path_long, file)\
+        to_remove_abs = [os.path.join(self.fake_path_long, file)
                          for file in to_remove]
         ex._perform_removal(to_remove_abs, self.fake_path_long)
         expected = ['test3.py', 'faketestlink.py',
@@ -273,7 +282,7 @@ class TestExecutor(unittest2.TestCase):
 
         self.assertListEqual(expected, os.listdir(self.fake_path_long))
         self.assertListEqual(['faketestdir2.py'], os.listdir(os.path.join(
-                                        self.fake_path_long, 'dir2')))
+            self.fake_path_long, 'dir2')))
 
 
 if __name__ == '__main__':

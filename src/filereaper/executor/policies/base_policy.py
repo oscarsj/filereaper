@@ -2,6 +2,7 @@
 Base class. All policies must extends from this class
 """
 
+
 class BasePolicy(object):
 
     value = None

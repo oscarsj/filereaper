@@ -5,6 +5,7 @@ import tempfile
 
 from filereaper import cronmanager, filereaper_module
 
+
 class TestCronManager(unittest2.TestCase):
 
     fake_crons_path = None
@@ -30,7 +31,8 @@ class TestCronManager(unittest2.TestCase):
             ('test_mode', True),
             ('recursive', 'True')
         ]
-        fake_module = filereaper_module.FileReaperModule('faKe fake', fake_items)
+        fake_module = filereaper_module.FileReaperModule('faKe fake',
+                                                         fake_items)
         self.cronman.load(fake_module)
 
         expected = """#!/bin/bash\n\n# File added by filereaper, do not change nor remove this file,\n# remove its configuration file instead and reload filereaper.\n\n/usr/fake/filereaper --path /var/log/fake --olderthan 5 --file_match .*-bla --keep_minimum 10 --test_mode --recursive """
@@ -51,7 +53,8 @@ class TestCronManager(unittest2.TestCase):
             ('recursive', 'True'),
             ('run_with', 'testuser')
         ]
-        fake_module = filereaper_module.FileReaperModule('faKe fake', fake_items)
+        fake_module = filereaper_module.FileReaperModule('faKe fake',
+                                                         fake_items)
         self.cronman.load(fake_module)
         with open(os.path.join(self.fake_crons_path,
                                '%s_faKe_fake' % self.fake_prefix), 'r') as f:

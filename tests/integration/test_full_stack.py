@@ -5,6 +5,7 @@ import tempfile
 
 from filereaper.executor import executor
 
+
 class TestFullStack(unittest2.TestCase):
 
     def setUp(self):

@@ -2,6 +2,7 @@ import os
 
 from base_policy import BasePolicy
 
+
 class Keeplast(BasePolicy):
 
     def execute(self):
