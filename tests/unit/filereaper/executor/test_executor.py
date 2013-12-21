@@ -281,9 +281,11 @@ class TestExecutor(unittest2.TestCase):
                     'test1.py', 'faketest2.py', 'faketest5.py',
                     'dir2', 'faketest7.py', 'test4']
 
-        self.assertListEqual(expected, os.listdir(self.fake_path_long))
-        self.assertListEqual(['faketestdir2.py'], os.listdir(os.path.join(
-            self.fake_path_long, 'dir2')))
+        for file in os.listdir(self.fake_path_long):
+            self.assertIn(file, expected)
+        for file in os.listdir(os.path.join(
+            self.fake_path_long, 'dir2')):
+            self.assertIn(file, ['faketestdir2.py'])
 
 if __name__ == '__main__':
     unittest2.main()
