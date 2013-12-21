@@ -16,7 +16,9 @@ Filereaper is a tool to remove files based on different and flexible policies.
 Installation
 -------------
 
-Two installation modes, the regular one is by a Debian package, the development one is as a Python egg
+Two installation modes:
+ * Debian package: regular installation
+ * Python egg: for development
 
 Execution modes
 --------
