@@ -2,16 +2,24 @@
 filereaper
 ==========
 
-Note: this tool is still in development, there are some pending things to do like:
+
+Filereaper is a tool to remove files based on different and flexible policies.
+
+It can work just as a command line executor and also as a Debian cron manager specifying configuration files easily
+
+
+Note: it is still in development, there are some pending things to do like:
 
  * implement more policies
  * code documentation
+ * autodoc with sphinx and readthedocs
  * implement missing options
+ * verbose mode
+ * use python logger
 
-About
----------
 
-Filereaper is a tool to remove files based on different and flexible policies.
+.. image:: https://travis-ci.org/victorgp/filereaper.png?branch=master
+   :target: https://travis-ci.org/victorgp/filereaper
 
 
 Installation
