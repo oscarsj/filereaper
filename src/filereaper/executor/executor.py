@@ -5,6 +5,7 @@ import copy
 import policyloader
 import context
 import file_object
+import params_config
 
 
 class Executor(object):
@@ -12,31 +13,8 @@ class Executor(object):
     test_mode = None
 
     def __init__(self, params):
-        self.base_params_list = [
-            'path',
-            'file_match',
-            'run_with',  # TODO
-            'test_mode',
-            'groups_match',  # TODO
-            'recurse',
-            'keepminimum',
-            'exclude_list',
-            'time_mode',
-            'remove_links',
-        ]
-        self.policy_params_list = [
-            'keeplast',
-            'older_than_d',  # TODO
-            'older_than_m',  # TODO
-            'older_than_s',  # TODO
-            'newer_than_d',  # TODO
-            'newer_than_m',  # TODO
-            'newer_than_s',  # TODO
-            'dir_size_threshold',  # TODO
-            'partition_size_threshold',  # TODO
-            'file_owners',  # TODO
-            'file_groups',  # TODO
-        ]
+        self.base_params_list = params_config.BASE_PARAMS
+        self.policy_params_list = params_config.POLICIES
         self.params = params
         self.test_mode = params['test_mode']\
             if params and 'test_mode' in params else True
@@ -112,7 +90,7 @@ class Executor(object):
 
     def _remove_file(self, file_path):
         os.remove(file_path) if not self.test_mode\
-                             else self._print_removal(file_path)
+            else self._print_removal(file_path)
 
     def _remove_dir(self, dir):
         os.rmdir(dir) if not self.test_mode else self._print_removal(dir)
@@ -144,8 +122,8 @@ class Executor(object):
                 current.append(file_object.FileObject(item_path))
             elif os.path.isdir(item_path) and recurse:
                 current = self._get_all_files(current, item_path,
-                                                   filenamematch, recurse,
-                                                   remove_links)
+                                              filenamematch, recurse,
+                                              remove_links)
         return current
 
     def _sort_files(self, files, sort_by):
