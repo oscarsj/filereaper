@@ -13,7 +13,7 @@ BASE_PARAMS = [
 
 POLICIES = [
     'keeplast',
-    'older_than_d',  # TODO
+    'older_than_d',
     'older_than_m',  # TODO
     'older_than_s',  # TODO
     'newer_than_d',  # TODO

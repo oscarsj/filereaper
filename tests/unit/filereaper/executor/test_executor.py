@@ -8,6 +8,7 @@ import time
 
 from filereaper.executor import executor
 from filereaper.executor.file_object import FileObject
+from filereaper.executor import exceptions
 
 
 class TestExecutor(unittest2.TestCase):
@@ -285,6 +286,11 @@ class TestExecutor(unittest2.TestCase):
             self.assertIn(file, expected)
         for file in os.listdir(os.path.join(self.fake_path_long, 'dir2')):
             self.assertIn(file, ['faketestdir2.py'])
+
+    def test_params_sanity_check(self):
+        ex = executor.Executor({'older_than_d': 10, 'older_than_m': 5})
+        self.assertRaises(exceptions.ParamsNotAllowed,
+                          ex.params_sanity_check())
 
 if __name__ == '__main__':
     unittest2.main()

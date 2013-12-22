@@ -6,6 +6,7 @@ import policyloader
 import context
 import file_object
 import params_config
+import exceptions
 
 
 class Executor(object):
@@ -20,9 +21,23 @@ class Executor(object):
             if params and 'test_mode' in params else True
 
     def execute(self):
+        self.params_sanity_check(self.params)
         base_params = self._extract_base_params(self.params)
         files_to_remove = self._build_files_to_remove(base_params)
         self._perform_removal(files_to_remove, base_params['path'])
+
+    def params_sanity_check(self, params):
+        """
+        This method perform some checks in the parameters not allowed
+        and raises and exception if so.
+        """
+        if len([p for p in params if p.startwith('older_than_')] > 1):
+            msg = "Multiple older_than_X parameters, must choose one of them"
+            raise exceptions.ParamsNowAllowed(msg)
+
+        if len([p for p in params if p.startwith('newer_than_')] > 1):
+            msg = "Multiple newer_than_X parameters, must choose one of them"
+            raise exceptions.ParamsNowAllowed(msg)
 
     def _build_files_to_remove(self, base_params):
         """
