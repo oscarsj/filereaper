@@ -288,9 +288,9 @@ class TestExecutor(unittest2.TestCase):
             self.assertIn(file, ['faketestdir2.py'])
 
     def test_params_sanity_check(self):
-        ex = executor.Executor({'older_than_d': 10, 'older_than_m': 5})
-        self.assertRaises(exceptions.ParamsNotAllowed,
-                          ex.params_sanity_check())
+        ex = executor.Executor(None)
+        with self.assertRaises(exceptions.ParamsNotAllowed):
+            ex.params_sanity_check({'older_than_d': 10, 'older_than_m': 5})
 
 if __name__ == '__main__':
     unittest2.main()

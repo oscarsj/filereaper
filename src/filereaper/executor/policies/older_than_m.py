@@ -3,8 +3,8 @@ import datetime
 from older_than_base import OlderThanBase
 
 
-class OlderThanD(OlderThanBase):
+class OlderThanM(OlderThanBase):
 
-    def get_thetime(self, older_than_d):
+    def get_thetime(self, older_than_m):
         return datetime.datetime.now() - datetime.timedelta(
-            days=older_than_d)
+            minutes=older_than_m)
