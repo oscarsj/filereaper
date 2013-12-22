@@ -5,6 +5,7 @@ import unittest2
 import tempfile
 
 from filereaper.executor.policies import keepminimum
+from filereaper.executor.file_object import FileObject
 
 
 class TestKeepminimum(unittest2.TestCase):
@@ -13,14 +14,15 @@ class TestKeepminimum(unittest2.TestCase):
     base_params = None
 
     def _write_fake_file(self, filename, content):
-        with open(os.path.join(self.fake_path, filename), 'w') as f:
+        with open(os.path.join(self.fake_path, filename.path), 'w') as f:
             f.write(content)
 
     def tearDown(self):
         shutil.rmtree(self.fake_path)
 
     def setUp(self):
-        self.fake_files = ['test1', 'test2', 'test3']
+        fake_file_names = ['test1', 'test2', 'test3']
+        self.fake_files = [FileObject(f) for f in fake_file_names]
         self.base_params = {'file_match': '.*'}
         self.fake_path = tempfile.mkdtemp()
         for i in self.fake_files:

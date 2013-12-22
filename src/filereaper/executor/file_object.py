@@ -1,7 +1,5 @@
 from collections import namedtuple
 
-FileObjectT = namedtuple('FileObjectT', ['path', 'time'])
-
 
 class FileObject(object):
 
