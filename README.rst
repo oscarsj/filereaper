@@ -110,3 +110,11 @@ The policies are applies in the most restrictive way, this means removing the le
  * **older_than_d**
 
   ordering by time (atime, ctime or mtime) filreaper will remove the files older than N days
+
+ * **older_than_m**
+
+  ordering by time (atime, ctime or mtime) filreaper will remove the files older than N minutes
+
+ * **older_than_s**
+
+  ordering by time (atime, ctime or mtime) filreaper will remove the files older than N seconds
