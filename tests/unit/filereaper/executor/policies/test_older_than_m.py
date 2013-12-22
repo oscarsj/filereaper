@@ -1,7 +1,6 @@
 import os
 import time
 import shutil
-import calendar
 import unittest2
 import datetime
 import tempfile
@@ -25,10 +24,8 @@ class TestOlderThanM(unittest2.TestCase):
         shutil.rmtree(self.fake_path)
 
     def _get_unix_timestamp(self, n):
-        old_date = datetime.datetime.now() - datetime.timedelta(minutes=n,
-                                                                hours=1,
-                                                                seconds=1)
-        return calendar.timegm(old_date.timetuple())
+        date = datetime.datetime.now() - datetime.timedelta(minutes=n)
+        return int(date.strftime("%s"))
 
     def _prepare_files(self, newer_files, older_files):
         self.fake_files = list()
